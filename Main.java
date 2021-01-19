@@ -1,20 +1,24 @@
 package DSProject;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 public class Main {
     static Scanner sc = null;
+    static int index =0;
     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy");
     static LocalDateTime date = LocalDateTime.now();
+    static HashSet<Person> fazian;
     static int cur = Integer.parseInt(dtf.format(date));
     static JFileChooser chooser = new JFileChooser("D:\\Alireza\\Tuturials\\Uni\\Data Structure\\Project\\SampleData (2)");
     static CityGraph graph = new CityGraph();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         selectFolder();
         showMainMenu();
     }
@@ -27,8 +31,7 @@ public class Main {
             System.out.println("File not selected");
         }
     }
-    static void showMainMenu()
-    {
+    static void showMainMenu() throws InterruptedException {
         JFrame frameMain = new JFrame();
         JButton people = new JButton("People");
         JButton accounts = new JButton("Accounts");
@@ -60,15 +63,69 @@ public class Main {
         frameMain.setSize(400 , 200);
         frameMain.setVisible(true);
         frameMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        people.addActionListener(actionEvent -> showPeople());
-        accounts.addActionListener(actionEvent -> showAccounts());
-        calls.addActionListener(actionEvent -> showCalls());
-        cars.addActionListener(actionEvent -> showCars());
-        homes.addActionListener(actionEvent -> showHomes());
-        ownerships.addActionListener(actionEvent -> showOwn());
-        phones.addActionListener(actionEvent -> showPhones());
-        relationships.addActionListener(actionEvent -> showRelations());
-        transactions.addActionListener(actionEvent -> showTrans());
+        people.addActionListener(actionEvent -> {
+            try {
+                showPeople();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        accounts.addActionListener(actionEvent -> {
+            try {
+                showAccounts();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        calls.addActionListener(actionEvent -> {
+            try {
+                showCalls();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        cars.addActionListener(actionEvent -> {
+            try {
+                showCars();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        homes.addActionListener(actionEvent -> {
+            try {
+                showHomes();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        ownerships.addActionListener(actionEvent -> {
+            try {
+                showOwn();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        phones.addActionListener(actionEvent -> {
+            try {
+                showPhones();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        relationships.addActionListener(actionEvent -> {
+            try {
+                showRelations();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        transactions.addActionListener(actionEvent -> {
+            try {
+                showTrans();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         faz2.addActionListener(actionEvent -> {
             try {
                 faz2();
@@ -76,16 +133,30 @@ public class Main {
                 e.printStackTrace();
             }
         });
-        faz3.addActionListener(actionEvent -> faz3());
+        faz3.addActionListener(actionEvent -> {
+            try {
+                faz3();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         faz4.addActionListener(actionEvent -> faz4());
+        showPeople();
+        showAccounts();
+        showHomes();
+        showPhones();
+        showCars();
+        showCalls();
+        showTrans();
+        showOwn();
+        showRelations();
     }
-    static void showPeople()
-    {
+    static void showPeople() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\people.csv");
         scanner(file, 6);
     }
 
-    private static void scanner(File file, int i2) {
+    private static void scanner(File file, int i2) throws InterruptedException {
         try {
             sc = new Scanner(new FileInputStream(file));
         } catch (FileNotFoundException e) {
@@ -128,72 +199,83 @@ public class Main {
         jFrame.setVisible(true);
         System.out.println(table.getRowCount() + " " + file.getName().substring(0 , file.getName().length()-4));
         jFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//        Thread.sleep(300);
+        jFrame.dispatchEvent(new WindowEvent(jFrame , WindowEvent.WINDOW_CLOSING));
     }
 
-    static void showAccounts()
-    {
+    static void showAccounts() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\accounts.csv");
         scanner(file, 4);
     }
-    static void showOwn()
-    {
+    static void showOwn() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\ownerships.csv");
         scanner(file, 5);
     }
-    static void showPhones()
-    {
+    static void showPhones() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\phones.csv");
         scanner(file, 3);
     }
-    static void showRelations()
-    {
+    static void showRelations() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\relationships.csv");
         scanner(file, 4);
     }
-    static void showTrans()
-    {
+    static void showTrans() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\transactions.csv");
         scanner(file, 5);
     }
-    static void showCalls()
-    {
+    static void showCalls() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\calls.csv");
         scanner(file, 5);
     }
-    static void showCars()
-    {
+    static void showCars() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\cars.csv");
         scanner(file, 4);
     }
-    static void showHomes()
-    {
+    static void showHomes() throws InterruptedException {
         File file = new File(chooser.getSelectedFile().getAbsolutePath()+"\\homes.csv");
         scanner(file, 5);
     }
     static void faz2() throws IOException {
         HashMap<String,Person> persons= graph.persons;
-        HashMap<String,Person> fazian = graph.persons;
+        fazian = new HashSet<>();
         for(Person p:persons.values())
         {
             if(p.job.equals("گمرک") || p.job.equals("سازمان بنادر"))
             {
                 if (checkfaz2(p))
-                    fazian.put(p.key , p);
+                    fazian.add(p);
                 for (Node node : p.connected.values())
                     if (node instanceof Person)
-                        if (checkfaz2(p))
-                            fazian.put(p.key , p);
+                        if (checkfaz2((Person) node))
+                            fazian.add(p);
             }
         }
         File file = new File("d:\\maznonin 2.txt");
-        FileWriter writer = new FileWriter(file);
-        int index =0;
-        for (Person person : fazian.values())
-            writer.write(++index + person.toString() + "\n");
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        for (Person person : fazian)
+        {
+            String text = (++index) + "  ->  " + person.toString() + "\n";
+            fileOutputStream.write(text.getBytes());
+        }
     }
-    static void faz3()
-    {
 
+    static void faz3() throws IOException {
+        HashMap<String,Person> persons= graph.persons;
+        for(Person p:persons.values()) {
+            if (p.job.equals("قاچاقچی"))
+            {
+                Person maz = checkfaz3(p);
+                if (maz !=null)
+                {
+                    System.out.println(maz);
+                    File file = new File("d:\\maznonin 3.txt");
+                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                    String text = (++index) + "  ->  " + maz.toString() + "\n";
+                    fileOutputStream.write(text.getBytes());
+                }
+                else fazian.remove(p);
+            }
+        }
     }
     static void faz4()
     {
@@ -201,15 +283,36 @@ public class Main {
     }
     static boolean checkfaz2(Person person)
     {
-        for (Edge edge : person.edges.values())
+        for (Own own : person.owns.values())
         {
-            if (edge instanceof Own)
+            int year = Integer.parseInt(own.time.substring(0 , 4));
+            if (cur-year <= 3)
             {
-                int year = Integer.parseInt(((Own) edge).time.substring(0 , 4));
-                if (cur-year <=2)
-                    return true;
+                return true;
             }
         }
         return false;
+    }
+    static int i=0;
+    static Person checkfaz3(Person person)
+    {
+        for (Edge e : person.edges.values())
+        {
+            if (e instanceof Transaction && i<=5)
+            {
+                i++;
+                if (fazian.contains(((Transaction)e).to))
+                {
+                    i=0;
+                    return (Person) ((Transaction) e ).to;
+                }
+                if (i==5)
+                {
+                    i=0;
+                }
+                return checkfaz3((Person) ((Transaction) e ).to);
+            }
+        }
+        return null;
     }
 }

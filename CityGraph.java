@@ -65,16 +65,14 @@ public class CityGraph
          person.connect(car , own);
       }
       edges.put(own.key , own);
+      person.owns.put(own.key , own);
    }
    void add_relation(String[] r){
       Person from = get_person(r[0]);
       Person to = get_person(r[1]);
-      Relation rel1 = new Relation(from , to , r[2] , r[3]);
-      Relation rel2 = new Relation(from , to , r[2] , r[3]);
-      from.connect(to , rel1);
-      to.connect(from , rel2);
-      edges.put(rel1.key , rel1);
-      edges.put(rel2.key , rel2);
+      Relation rel = new Relation(from , to , r[2] , r[3]);
+      from.connect(to , rel);
+      edges.put(rel.key , rel);
    }
    void add_transaction(String[] t){
       BankAccount from = get_bankAccount(t[0]);

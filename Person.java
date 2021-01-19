@@ -1,10 +1,13 @@
 package DSProject;
 
+import java.util.HashMap;
+
 public class Person extends Node
 {
     String firstname , lastname;
     String kode;
     String birthplace , job , birthday;
+    HashMap<String , Own> owns = new HashMap<>();
     public Person(String firstname, String lastname, String kode, String birthday, String birthplace, String job) {
         super(kode);
         this.firstname = firstname;
